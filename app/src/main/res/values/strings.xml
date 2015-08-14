@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Etrans</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="error_no_sdcard">没有SD卡无法存储录音数据</string>
+    <string name="error_state_record">正在录音中，请先停止录音</string>
+    <string name="error_unknown">无法识别的错误</string>
+    <string name="title_activity_left_record">LeftRecordActivity</string>
+    <string name="title_activity_right_record">RightRecordActivity</string>
+    <string name="title_activity_chat">ChatActivity</string>
+
+    <string name="progress_loading">loading....</string>
+    <string name="title_activity_chat_record">ChatRecordActivity</string>
+</resources>

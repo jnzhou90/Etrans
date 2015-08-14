@@ -1,0 +1,124 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg"
+    android:orientation="horizontal"
+    tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:id="@+id/voice_recordinglight_1"
+            android:layout_width="175dp"
+            android:layout_height="175dp"
+            android:layout_centerInParent="true"
+            android:scaleType="centerInside"
+            android:src="@mipmap/voice_ugc_icon_recordinglight"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/voice_recordinglight_2"
+            android:layout_width="175dp"
+            android:layout_height="175dp"
+            android:layout_centerInParent="true"
+            android:scaleType="centerInside"
+            android:src="@mipmap/voice_ugc_icon_recordinglight"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/voice_recordinglight_3"
+            android:layout_width="175dp"
+            android:layout_height="175dp"
+            android:layout_centerInParent="true"
+            android:scaleType="centerInside"
+            android:src="@mipmap/voice_ugc_icon_recordinglight"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:id="@+id/imgbtn_doctor"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_centerInParent="true"
+            android:background="@mipmap/doctor" />
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="80dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/logo_left" />
+
+
+        <ImageButton
+            android:id="@+id/imgbtn_doctorlang"
+            android:layout_width="140dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:background="@mipmap/banner_english" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        android:orientation="vertical">
+        <ImageView
+            android:id="@+id/voice_recordinglight_11"
+            android:layout_width="175dp"
+            android:layout_height="175dp"
+            android:layout_centerInParent="true"
+            android:scaleType="centerInside"
+            android:src="@mipmap/voice_ugc_icon_recordinglight"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/voice_recordinglight_12"
+            android:layout_width="175dp"
+            android:layout_height="175dp"
+            android:layout_centerInParent="true"
+            android:scaleType="centerInside"
+            android:src="@mipmap/voice_ugc_icon_recordinglight"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/voice_recordinglight_13"
+            android:layout_width="175dp"
+            android:layout_height="175dp"
+            android:layout_centerInParent="true"
+            android:scaleType="centerInside"
+            android:src="@mipmap/voice_ugc_icon_recordinglight"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="80dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/logo_right" />
+
+        <ImageButton
+            android:id="@+id/imgbtn_patient"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_centerInParent="true"
+            android:background="@mipmap/patient" />
+
+        <ImageButton
+            android:id="@+id/imgbtn_patientlang"
+            android:layout_width="140dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:background="@mipmap/banner_spanish" />
+    </RelativeLayout>
+</LinearLayout>
