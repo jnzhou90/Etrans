@@ -2,7 +2,7 @@
 # Hospital Emergency Mobile App
 To Use
 ================================================================================
-Click the button below£¬ an Android install apk will download, then install this apk on your Android mobile phone.
+Click the button below,an Android install apk will download, then install this apk on your Android mobile phone.
 
 [![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://github.com/jnzhou90/Etrans/blob/master/app/app-release.apk?raw=true)
 
@@ -26,5 +26,5 @@ Click the button below£¬ an Android install apk will download, then install this
 *  Git
 
 ## Other
-* jJavascript
+* Javascript
 
