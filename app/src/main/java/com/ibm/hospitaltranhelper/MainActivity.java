@@ -124,12 +124,12 @@ public class MainActivity extends Activity {
                             case "en":
                                 imgBtnDoctorLang.setBackgroundResource(R.mipmap.banner_english);
                                 leftSelectLang = Constants.ENGLISH;
-                                Toast.makeText(getApplicationContext(), leftSelectLang, Toast.LENGTH_LONG).show();
+                               // Toast.makeText(getApplicationContext(), leftSelectLang, Toast.LENGTH_LONG).show();
                                 break;
                             case "es":
                                 imgBtnDoctorLang.setBackgroundResource(R.mipmap.banner_spanish);
                                 leftSelectLang = Constants.SPANISH;
-                                Toast.makeText(getApplicationContext(), lang, Toast.LENGTH_LONG).show();
+                               // Toast.makeText(getApplicationContext(), lang, Toast.LENGTH_LONG).show();
                                 break;
                             case "otherlang":
                                 Toast.makeText(getApplicationContext(), "It cannot Specch to Text", Toast.LENGTH_LONG).show();
@@ -171,12 +171,12 @@ public class MainActivity extends Activity {
                             case "en":
                                 imgBtnPatientLang.setBackgroundResource(R.mipmap.banner_english);
                                 rightSelectLang = Constants.ENGLISH;
-                                Toast.makeText(getApplicationContext(), lang, Toast.LENGTH_LONG).show();
+                              //  Toast.makeText(getApplicationContext(), lang, Toast.LENGTH_LONG).show();
                                 break;
                             case "es":
                                 imgBtnPatientLang.setBackgroundResource(R.mipmap.banner_spanish);
                                 rightSelectLang = Constants.SPANISH;
-                                Toast.makeText(getApplicationContext(), rightSelectLang, Toast.LENGTH_LONG).show();
+                             //   Toast.makeText(getApplicationContext(), rightSelectLang, Toast.LENGTH_LONG).show();
                                 break;
                             case "otherlang":
                                 Toast.makeText(getApplicationContext(), "It cannot Specch to Text", Toast.LENGTH_LONG).show();

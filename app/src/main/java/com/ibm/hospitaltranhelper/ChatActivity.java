@@ -108,7 +108,7 @@ public class ChatActivity extends Activity {
             layout.setBackgroundColor(Color.parseColor("#21c7e8"));
         }
 
-      //  Toast.makeText(getApplicationContext(), "where---:" + where + "  sourcelang---:" + sourcelang + "    targetlang-----:" + targetlang, Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), "where---:" + where + "  sourcelang---:" + sourcelang + "    targetlang-----:" + targetlang, Toast.LENGTH_LONG).show();
 
     }
 
