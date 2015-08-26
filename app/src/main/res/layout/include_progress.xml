@@ -3,22 +3,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/imgviewprogress"
+        android:layout_width="76dp"
+        android:layout_height="76dp"
+        android:layout_centerInParent="true"
+        android:background="@mipmap/ttt"/>
+  <!--  <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:gravity="center"
-        android:orientation="vertical" >
+        android:orientation="vertical" >-->
 
         <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerInParent="true"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/progress_loading"
             android:textColor="@color/text_gray" />
-    </LinearLayout>
+<!--    </LinearLayout>-->
 
 </RelativeLayout>

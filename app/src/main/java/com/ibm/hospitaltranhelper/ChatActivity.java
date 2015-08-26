@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 
 
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 
@@ -14,6 +16,7 @@ import android.os.Message;
 import android.os.StrictMode;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +29,8 @@ import com.ibm.hospitaltranhelper.utils.WaveFileWriter;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class ChatActivity extends Activity {
@@ -36,6 +41,8 @@ public class ChatActivity extends Activity {
     private TextView txtTarget;
     private TextView txtSource;
     private RelativeLayout progressLayout;
+
+    private ImageView  imgViewProgres;
     private String sttStr = "";
     private String tttStr = "";
 
@@ -53,6 +60,10 @@ public class ChatActivity extends Activity {
     private File watsonNewWav;
     private File watsonwavtowav;
 
+//    private float runTime = 0.0f;//运行时间
+    private long RUN_MAX_TIME = 15000;//设置运行时间不超过8s
+
+    private Thread runThread;
 
     private String wavpath;
     private String where;
@@ -62,16 +73,6 @@ public class ChatActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // 在Android2.2以后必须添加以下代码
-        // 本应用采用的Android4.0
-        // 设置线程的策略
-        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-                .detectDiskReads().detectDiskWrites().detectNetwork()
-                .penaltyLog().build());
-        // 设置虚拟机的策略
-        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-                .detectLeakedSqlLiteObjects()
-                .penaltyLog().penaltyDeath().build());
 
         if (!NetUtils.isConnected(getApplicationContext())) {
             Toast.makeText(getApplicationContext(), "手机没有连上网！，请联网后再重试！",
@@ -83,7 +84,6 @@ public class ChatActivity extends Activity {
         sourcelang = it.getStringExtra("sourceLang");
         targetlang = it.getStringExtra("targetLang");
         where = it.getStringExtra("where");
-
 
         initView();
         initData();
@@ -100,77 +100,68 @@ public class ChatActivity extends Activity {
         txtTarget = (TextView) findViewById(R.id.txt_target);
         progressLayout = (RelativeLayout) findViewById(R.id.progress);
 
-        if(where == "right"){
-           // layout.setBackgroundColor(Color.parseColor("#8a71bf") );
+        imgViewProgres= (ImageView)findViewById(R.id.imgviewprogress);
+
+        if (where == "right") {
+            // layout.setBackgroundColor(Color.parseColor("#8a71bf") );
             layout.setBackgroundColor(getResources().getColor(R.color.purple));
 
-        }else{
+        } else {
             layout.setBackgroundColor(Color.parseColor("#21c7e8"));
         }
 
         //Toast.makeText(getApplicationContext(), "where---:" + where + "  sourcelang---:" + sourcelang + "    targetlang-----:" + targetlang, Toast.LENGTH_LONG).show();
 
     }
-
+   private  AnimationDrawable animDraw;
     private void initData() {
+        Resources res = getResources();
+        animDraw = (AnimationDrawable) res.getDrawable(R.drawable.progressanimation);
+        imgViewProgres.setImageDrawable(animDraw);
+        animDraw.start();
 
+        if (NetUtils.isConnected(getApplicationContext())) {
+            RunThread();//启动调用watson的线程
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-          /*      Message m = new Message();
-                m.what = 0;
-                handler.sendMessage(m);*/
+            handler = new Handler() {
+                public void handleMessage(Message msg) {
+                    super.handleMessage(msg);
+                    switch (msg.what){
+                        case 1:
+                            txtSource.setText(sttStr);
+                            txtTarget.setText(tttStr);
+                            progressLayout.setVisibility(View.GONE);
 
-                Message m1 = new Message();
-                m1.what = 1;
-                sttStr = TranslationHelper.speechToText(wavpath, sourcelang);
-
-                tttStr = TranslationHelper.translate(sttStr, sourcelang, targetlang);
-
-                handler.sendMessage(m1);
-
-                Message m = new Message();
-                m.what = 2;
-                watsonWav = TranslationHelper.textToSpeech(tttStr, getWatsonWav, targetlang);
-                watsonNewWav = new File(getNewWatsonWav);
-                try {
-                    watsonwavtowav = watsonWavToWav(getWatsonWav, getNewWatsonWav);
-                } catch (IOException e1) {
-                    e1.printStackTrace();
+                            animDraw.stop();
+                            imgViewProgres.setVisibility(View.GONE);
+                            txtSource.setVisibility(View.VISIBLE);
+                            txtTarget.setVisibility(View.VISIBLE);
+                            imgBtnBack.setVisibility(View.VISIBLE);
+                            imgBtnSpeak.setVisibility(View.VISIBLE);
+                            imgBtnChartRecord.setVisibility(View.VISIBLE);
+                            break;
+                        case 2:
+                            playWav();
+                            break;
+//                        case 3:
+//                            goHome();
+//                            break;
+                    }
+                    
                 }
-                handler.sendMessage(m);
+            };
 
-            }
-        }).start();
+         //   handler.sendEmptyMessageDelayed(3,RUN_MAX_TIME);
 
-        handler = new Handler() {
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-
-                if (msg.what == 1) {
-
-                    txtSource.setText(sttStr);
-                    txtTarget.setText(tttStr);
-                    progressLayout.setVisibility(View.GONE);
-                    txtSource.setVisibility(View.VISIBLE);
-                    txtTarget.setVisibility(View.VISIBLE);
-                    imgBtnBack.setVisibility(View.VISIBLE);
-                    imgBtnSpeak.setVisibility(View.VISIBLE);
-
-                }else  if(msg.what == 2){
-                    playWav();
-                    imgBtnChartRecord.setVisibility(View.VISIBLE);
-                }
-
-
-            }
-        };
-
+        } else {
+            Toast.makeText(getApplicationContext(), "Your phone without Internet!",
+                    Toast.LENGTH_LONG).show();
+            finish();
+        }
 
     }
 
-    private void playWav(){
+    private void playWav() {
         if (!playState) {
             mMediaPlayer = new MediaPlayer();
             try {
@@ -209,6 +200,7 @@ public class ChatActivity extends Activity {
             }
         }
     }
+
     private void setClickListener() {
         imgBtnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -228,7 +220,7 @@ public class ChatActivity extends Activity {
         imgBtnSpeak.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              playWav();
+                playWav();
             }
         });
     }
@@ -260,6 +252,45 @@ public class ChatActivity extends Activity {
 
 
 
+    //运行线程
+    void RunThread() {
+        runThread = new Thread(runRunable);
+        runThread.start();
+    }
+
+    private Runnable runRunable = new Runnable() {
+        @Override
+        public void run() {
+
+
+            Message m1 = new Message();
+            m1.what = 1;
+            sttStr = TranslationHelper.speechToText(wavpath, sourcelang);
+            tttStr = TranslationHelper.translate(sttStr, sourcelang, targetlang);
+            handler.sendMessage(m1);
+
+            Message m = new Message();
+            m.what = 2;
+            watsonWav = TranslationHelper.textToSpeech(tttStr, getWatsonWav, targetlang);
+            watsonNewWav = new File(getNewWatsonWav);
+            try {
+                watsonwavtowav = watsonWavToWav(getWatsonWav, getNewWatsonWav);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+            handler.sendMessage(m);
+
+        }
+    };
+
+
+    private void goHome(){
+        Toast.makeText(getApplicationContext(),"运行时间超过"+RUN_MAX_TIME/1000+"亲,你的网络有问题呀!请待会再试验!",Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(ChatActivity.this,MainActivity.class);
+        startActivity(intent);
+    // System.exit(0);
+        this.finish();
+    }
 
 
 }

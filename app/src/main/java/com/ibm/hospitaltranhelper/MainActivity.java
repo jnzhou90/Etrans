@@ -81,7 +81,7 @@ public class MainActivity extends Activity {
 
         setContentView(R.layout.activity_main);
         if (!NetUtils.isConnected(getApplicationContext())) {
-            Toast.makeText(getApplicationContext(), "Mobile phone without Internet!",
+            Toast.makeText(getApplicationContext(), "Your phone without Internet!",
                     Toast.LENGTH_LONG).show();
         }
         initView();
@@ -272,7 +272,7 @@ public class MainActivity extends Activity {
                             //录音开始了
 
                             startRecordMav();
-
+                            //开始计时
                             recordTimethread();
                         }
                         break;
