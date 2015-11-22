@@ -13,7 +13,6 @@ public class Constants {
 
 
 
-
     public static String ENGLISH = "en"; //英语
     public static String SPANISH = "es";//西班牙语
     public static String PORTUGUESE ="pt";//葡萄牙语

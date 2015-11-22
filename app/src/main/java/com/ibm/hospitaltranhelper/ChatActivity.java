@@ -60,7 +60,6 @@ public class ChatActivity extends Activity {
     private File watsonNewWav;
     private File watsonwavtowav;
 
-//    private float runTime = 0.0f;//运行时间
     private long RUN_MAX_TIME = 15000;//设置运行时间不超过8s
 
     private Thread runThread;
@@ -84,7 +83,6 @@ public class ChatActivity extends Activity {
         sourcelang = it.getStringExtra("sourceLang");
         targetlang = it.getStringExtra("targetLang");
         where = it.getStringExtra("where");
-
         initView();
         initData();
         setClickListener();
