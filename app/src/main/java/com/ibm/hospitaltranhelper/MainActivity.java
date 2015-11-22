@@ -2,14 +2,11 @@ package com.ibm.hospitaltranhelper;
 
 import android.app.Activity;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.StrictMode;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -21,8 +18,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ibm.hospitaltranhelper.config.Constants;
@@ -41,7 +36,6 @@ public class MainActivity extends Activity {
     private ImageButton imgBtnPatient;
     private ImageButton imgBtnDoctorLang;
     private ImageButton imgBtnPatientLang;
-
 
     private ImageView mRecordLight_1;
     private ImageView mRecordLight_2;
@@ -71,7 +65,6 @@ public class MainActivity extends Activity {
     private int mRecord_State = 0; // 录音的状态
 
     private AudioRecordFunc mRecordMav;
-
     private Thread mRecordThread;
 
 
@@ -81,7 +74,7 @@ public class MainActivity extends Activity {
 
         setContentView(R.layout.activity_main);
         if (!NetUtils.isConnected(getApplicationContext())) {
-            Toast.makeText(getApplicationContext(), "Your phone without Internet!",
+            Toast.makeText(getApplicationContext(), "请连上网络！",
                     Toast.LENGTH_LONG).show();
         }
         initView();
@@ -270,7 +263,6 @@ public class MainActivity extends Activity {
                             //修改录音状态
                             mRecord_State = RECORD_ING;
                             //录音开始了
-
                             startRecordMav();
                             //开始计时
                             recordTimethread();
@@ -303,10 +295,7 @@ public class MainActivity extends Activity {
                 return false;
             }
         });
-
-
     }
-
 
     /**
      * 开始录音
@@ -320,7 +309,6 @@ public class MainActivity extends Activity {
         } else {
             Log.i("record", "Record failure!");
         }
-
     }
 
     /**
@@ -436,7 +424,7 @@ public class MainActivity extends Activity {
     };
 
     /**
-     * 开始动画效果
+     * 开始动画
      */
     private void startRecordLightAnimation() {
         mRecordLightHandler.sendEmptyMessageDelayed(0, 0);
